@@ -11,3 +11,4 @@ systemctl status jenkins
 yum install java-21-amazon-corretto -y
 
 
+tadaaaaaaaa i am going to build automatically
