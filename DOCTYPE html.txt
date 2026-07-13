@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myntra Clone - Fashion Shopping</title>
+    <!-- Boxicons for standard UI E-commerce navigation icons -->
+    <link href="https://unpkg.com" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f6;
+        }
+
+        /* ----- NAVBAR ----- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 80px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-container {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ff3f6c; /* Signature Myntra Pink/Red */
+            letter-spacing: -1px;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #282c3f;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 28px 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+        }
+
+        nav ul li a:hover {
+            border-bottom: 4px solid #ff3f6c;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f6;
+            width: 35%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+        }
+
+        .search-bar:focus-within {
+            background-color: #ffffff;
+            border-color: #eaeaec;
+        }
+
+        .search-bar i {
+            color: #696e79;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+            color: #282c3f;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 25px;
+        }
+
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: #282c3f;
+        }
+
+        .action-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .action-item span {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ----- PROMOTIONAL HERO SLIDER ----- */
+        .slider-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 300%;
+        }
+
+        .slide {
+            width: 100%;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Dummy Image Sliders styled with gradient colors to represent modern banners */
+        .slide:nth-child(1) { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: #ff3f6c; }
+        .slide:nth-child(2) { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); color: #1e3c72; }
+        .slide:nth-child(3) { background: linear-gradient(135deg, #faddb2 0%, #fbc2eb 100%); color: #d4418e; }
+
+        /* ----- MAIN CONTENT & PRODUCTS ----- */
+        main {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3e4152;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            border-left: 5px solid #ff3f6c;
+            padding-left: 10px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            background-color: #eaeaea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #878787;
+            font-weight: bold;
+        }
+
+        /* Distinct mockup block colors representing product cards */
+        .img-1 { background-color: #ffe3e3; }
+        .img-2 { background-color: #e3f2fd; }
+        .img-3 { background-color: #e8f5e9; }
+        .img-4 { background-color: #fff3e0; }
+        .img-5 { background-color: #f3e5f5; }
+
+        .product-details {
+            padding: 12px;
+        }
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #282c3f;
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            color: #535766;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #282c3f;
+        }
+
+        .original-price {
+            font-size: 12px;
+            color: #7e818c;
+            text-decoration: line-through;
+        }
+
+        .discount-tag {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ff905a;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MYNTRA HEADER/NAV BAR MODULE -->
+    <header>
+        <div class="logo-container">Myntra</div>
+        
+        <nav>
+            <ul>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Kids</a></li>
+                <li><a href="#">Home & Living</a></li>
+                <li><a href="#">Beauty</a></li>
+            </ul>
+        </nav>
+
+        <div class="search-bar">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search for products, brands and more">
+        </div>
+
+        <div class="user-actions">
+            <div class="action-item">
+                <i class='bx bx-user'></i>
+                <span>Profile</span>
+            </div>
+            <div class="action-item">
+                <i class='bx bx-heart'></i>
+                <span>Wishlist</span>
+            </div>
+            <div class="action-item">
+                <i class='bx bx-shopping-bag'></i>
+                <span>Bag</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- AUTOMATIC ROTATING PROMO BANNER -->
+    <div class="slider-container">
+        <div class="slider" id="heroSlider">
+            <div class="slide">🔥 Big Fashion Festival - 50-80% OFF 🔥</div>
+            <div class="slide">👟 Premium Footwear Deals - Min 40% OFF 👟</div>
+            <div class="slide">👗 Trendy Ethnic Wear Styles Starting at ₹499 👗</div>
+        </div>
+    </div>
+
+    <!-- MAIN PRODUCT CONTAINER -->
+    <main>
+        <h2 class="section-title">Trending Items For You</h2>
+        
+        <div class="products-grid">
+            <!-- Product item 1 -->
+            <div class="product-card">
+                <div class="product-image img-1">Casual Shirt</div>
+                <div class="product-details">
+                    <div class="brand-name">Roadster</div>
+                    <div class="product-name">Men Cotton Pure Casual Shirt</div>
+                    <div class="price-container">
+                        <span class="current-price">₹699</span>
+                        <span class="original-price">₹1,399</span>
+                        <span class="discount-tag">(50% OFF)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product item 2 -->
+            <div class="product-card">
+                <div class="product-image img-2">Slim Fit Denim</div>
+                <div class="product-details">
+                    <div class="brand-name">Levis</div>
+                    <div class="product-name">511 Slim Fit Blue Jeans</div>
+                    <div class="price-container">
+                        <span class="current-price">₹1,899</span>
+                        <span class="original-price">₹3,499</span>
+                        <span class="discount-tag">(45% OFF)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product item 3 -->
+            <div class="product-card">
+                <div class="product-image img-3">Sports Shoes</div>
+                <div class="product-details">
+                    <div class="brand-name">HRX by Hrithik Roshan</div>
+                    <div class="product-name">轻量 Running Training Shoes</div>
+                    <div class="price-container">
+                        <span class="current-price">₹1,249</span>
+                        <span class="original-price">₹2,499</span>
